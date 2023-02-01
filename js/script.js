@@ -1,3 +1,7 @@
+                /*===========================
+                ESTRUCTURA INICIAL DEL JUEGO
+                =============================*/
+
 // CREACIÓN DE LAS CLASES INICIALES
 class carta { // la clase carta tiene dos propiedades: figura y numero
     constructor(figura, numero) {
