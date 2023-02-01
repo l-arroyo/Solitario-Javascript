@@ -15,3 +15,7 @@ function upTimer() {
 
     document.getElementById("contador_tiempo").innerHTML = hour + ":" + minute + ":" + updSecond;
 }
+
+function reiniciar() {
+    location.reload()
+}
