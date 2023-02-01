@@ -37,6 +37,7 @@ div#mesa {
    los respectivos mazos (arrays de <img>) puedan
    posicionarse de manera absoluta respecto a ellos */
 div.tapete {
+	border-radius: 5%;
 	display: inline-block;
 	position: relative;
 	margin: 10px;
@@ -63,4 +64,9 @@ div.tapete#sobrantes {
 /* Color de fondo de los tapetes receptores */
 div.tapete.receptor {
 	background-color: lightgreen;
+}
+
+#reset {
+	margin-left: auto;
+	margin-right: auto;
 }
