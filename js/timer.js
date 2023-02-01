@@ -7,11 +7,11 @@ function upTimer() {
 
     ++seconds;
 
-    var hour = Math.floor(seconds / 3600);
+    var hour = "0" + Math.floor(seconds / 3600);
 
-    var minute = Math.floor((seconds - hour * 3600) / 60);
+    var minute = "0" + Math.floor((seconds - hour * 3600) / 60);
 
-    var updSecond = seconds - (hour * 3600 + minute * 60);
+    var updSecond = "0" + seconds - (hour * 3600 + minute * 60);
 
     document.getElementById("contador_tiempo").innerHTML = hour + ":" + minute + ":" + updSecond;
 }
