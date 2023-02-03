@@ -16,17 +16,17 @@
 }
 
 .tituloLogo {
-	align-items: center;
-	border: 2px solid #E65014;
+	border: 3px #E65014;
+	border-style: none none dashed none;
 	width: 100%;
-	height: 10rem;
-	margin: 0 auto;
+	height: auto;
 }
 
 /* Centrado del título y color */
 h1#titulo {
 	text-align: center;
 	color: #E65014;
+	padding-bottom: 0.5em;
 	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
@@ -86,5 +86,7 @@ div.tapete.receptor {
 }
 
 #reset {
-	width: 89px;
+	width: 90px;
+	font-weight: bold;
+	background-color: #E65014;
 }
