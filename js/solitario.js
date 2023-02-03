@@ -60,7 +60,8 @@ function comenzar_juego() {
 		for (let j = 0; j < numeros.length; j++) { // recorremos el array de numeros
 			let carta = document.createElement("img"); // creamos la carta
 			carta.src = "imagenes/baraja/" + numeros[j] + "-" + palos[i] + ".png"; // le asignamos la ruta de la imagen combinando el numero y el palo
-			carta.setAttribute("valor", numeros[j]); // le asignamos el valor de la carta (para el juego
+			carta.setAttribute("num", numeros[j]); // le asignamos el valor de la carta
+			carta.setAttribute("palo", palos[i]); // le asignamos el palo de la carta
 			mazo_inicial.push(carta); // añadimos la carta al mazo
 		}
 	}
@@ -217,8 +218,6 @@ function set_contador(contador, valor) {
 } // set_contador
 
 
-
-
 // FUNCIONES ARRASTRAR CARTA, SOLTAR CARTA Y PERMITIR SOLTAR CARTA
 function drag_carta(event) {
 	event.dataTransfer.setData("text", event.target.id);
@@ -232,18 +231,18 @@ function drop(event) {
 	event.preventDefault();
 	var data = event.dataTransfer.getData("text");
 	event.target.appendChild(document.getElementById(data));
+
 }
 
-function comprueba() {
-	// comprueba cuál es la última carta del mazo
-	let ultima_carta = mazo[mazo.length - 1];
+function comprueba(carta) {
+
 	// si la última carta del mazo es 12, se permitirá soltar la carta
-	if (ultima_carta.getAttribute("valor") == 12) {
+	if (carta.getAttribute("num") == 12) {
 		// se permite soltar la carta
 		return true;
 	} else {
 		// se impide soltar la carta
-		ultima_carta.setAttribute("draggable", "false");
+		carta.setAttribute("draggable", "false");
 		return false;
 	}
 
