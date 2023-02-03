@@ -1,5 +1,4 @@
 /***** INICIO DECLARACIÓN DE VARIABLES GLOBALES *****/
-
 // Array de palos
 let palos = ["ova", "cua", "hex", "cir"];
 // Array de número de cartas
@@ -27,13 +26,13 @@ let mazo_receptor3 = [];
 let mazo_receptor4 = [];
 
 // Contadores de cartas
-let cont_inicial = document.getElementById("cont_inicial");
-let cont_sobrantes = document.getElementById("cont_sobrantes");
-let cont_receptor1 = document.getElementById("cont_receptor1");
-let cont_receptor2 = document.getElementById("cont_receptor2");
-let cont_receptor3 = document.getElementById("cont_receptor3");
-let cont_receptor4 = document.getElementById("cont_receptor4");
-let cont_movimientos = document.getElementById("cont_movimientos");
+let cont_inicial = document.getElementById("contador_inicial");
+let cont_sobrantes = document.getElementById("contador_sobrantes");
+let cont_receptor1 = document.getElementById("contador_receptor1");
+let cont_receptor2 = document.getElementById("contador_receptor2");
+let cont_receptor3 = document.getElementById("contador_receptor3");
+let cont_receptor4 = document.getElementById("contador_receptor4");
+let cont_movimientos = document.getElementById("contador_movimientos");
 
 // Tiempo - timer cuando cargue la página
 let cont_tiempo = document.getElementById("cont_tiempo"); // span cuenta tiempo
@@ -61,14 +60,13 @@ function comenzar_juego() {
 		for (let j = 0; j < numeros.length; j++) { // recorremos el array de numeros
 			let carta = document.createElement("img"); // creamos la carta
 			carta.src = "imagenes/baraja/" + numeros[j] + "-" + palos[i] + ".png"; // le asignamos la ruta de la imagen combinando el numero y el palo
+			carta.setAttribute("valor", numeros[j]); // le asignamos el valor de la carta (para el juego
 			mazo_inicial.push(carta); // añadimos la carta al mazo
 		}
 	}
-	logMazo(mazo_inicial);
-	// Barajar
-	barajar(mazo_inicial);
-	console.log("BARAJAMOS")
-	logMazo(mazo_inicial);
+
+	// Barajar el mazo_inicial
+	mazo_inicial = barajar(mazo_inicial);
 
 	// Dejar mazo_inicial en tapete inicial
 	cargar_tapete_inicial(mazo_inicial);
@@ -85,6 +83,8 @@ function comenzar_juego() {
 	arrancar_tiempo();
 
 } // comenzar_juego
+
+comenzar_juego();
 
 
 /**
@@ -112,25 +112,28 @@ function comenzar_juego() {
 */
 
 /* =================== TIMER Y RELOAD =================== */
+function reiniciar() {
+	window.location.reload();
+}
 
+
+var cInterval;
 function arrancar_tiempo() {
+	var segundos=0;
 	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
-	if (temporizador) clearInterval(temporizador);
-	let hms = function () {
+	cInterval = window.setInterval(function () {
 		let seg = Math.trunc(segundos % 60);
 		let min = Math.trunc((segundos % 3600) / 60);
 		let hor = Math.trunc((segundos % 86400) / 3600);
 		let tiempo = ((hor < 10) ? "0" + hor : "" + hor)
 			+ ":" + ((min < 10) ? "0" + min : "" + min)
 			+ ":" + ((seg < 10) ? "0" + seg : "" + seg);
-		set_contador(cont_tiempo, tiempo);
+			document.getElementById("contador_tiempo").innerHTML = tiempo;
 		segundos++;
-	}
-	segundos = 0;
-	hms(); // Primera visualización 00:00:00
-	temporizador = setInterval(hms, 1000);
+	},1000);
+};
 
-} // arrancar_tiempo
+ // arrancar_tiempo
 /* =================== FIN TIMER Y RELOAD =================== */
 
 /**
@@ -157,6 +160,7 @@ function barajar(mazo) {
 		mazo.splice(i, 1); // Eliminamos la carta del mazo original
 	}
 	mazo = mazo_barajado; // Asignamos el mazo barajado al mazo original
+	return mazo;
 } // barajar
 
 
@@ -169,11 +173,21 @@ function barajar(mazo) {
 	Al final se debe ajustar el contador de cartas a la cantidad oportuna
 */
 function cargar_tapete_inicial(mazo) {
-	/*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
+	/* !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! */
+	for (let i = 0; i < mazo.length; i++) { // Recorremos el mazo
+		let carta = mazo[i]; // Carta actual
+		carta.style.width = "100px"; // Ajustamos el ancho de la carta
+		carta.style.position = "absolute"; // Ajustamos la posición de la carta
+		carta.style.top = (i*4)+"px"; // Ajustamos la coordenada top de la carta
+		carta.style.left = (i*4)+"px"; // Ajustamos la coordenada left de la carta
+		carta.setAttribute("draggable", "false"); // Ajustamos el atributo draggable de la carta
+		tapete_inicial.appendChild(carta); // Añadimos la carta al tapete inicial
+	}
+	mazo[mazo.length-1].setAttribute("draggable", "true"); // Solo la ultima carta debe ser draggable
+
 } // cargar_tapete_inicial
 
-
-/**
+/*
 	  Esta función debe incrementar el número correspondiente al contenido textual
 		  del elemento que actúa de contador
 */
@@ -181,11 +195,11 @@ function inc_contador(contador) {
 	contador.innerHTML = +contador.innerHTML + 1;
 } // inc_contador
 
-/**
+/*
 	Idem que anterior, pero decrementando 
 */
 function dec_contador(contador) {
-	/*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! ***/
+	/* !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! */
 } // dec_contador
 
 /**
@@ -194,10 +208,40 @@ function dec_contador(contador) {
 */
 function set_contador(contador, valor) {
 	/*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
+	// asignarle el valor al objeto contador
+	texto = document.createTextNode(valor);
+	contador.appendChild(texto);
 } // set_contador
 
-function logMazo(mazo) {
-	for (let i = 0; i < mazo.length; i++) {
-		console.log(mazo[i].src);
+
+
+
+// FUNCIONES ARRASTRAR CARTA, SOLTAR CARTA Y PERMITIR SOLTAR CARTA
+function drag_carta(event) {
+	event.dataTransfer.setData("text", event.target.id);
+}
+
+function allowDrop(event) {
+	event.preventDefault();
+}
+
+function drop(event) {
+	event.preventDefault();
+	var data = event.dataTransfer.getData("text");
+	event.target.appendChild(document.getElementById(data));
+}
+
+function comprueba() {
+	// comprueba cuál es la última carta del mazo
+	let ultima_carta = mazo[mazo.length-1];
+	// si la última carta del mazo es 12, se permitirá soltar la carta
+	if (ultima_carta.getAttribute("valor") == 12) {
+		// se permite soltar la carta
+		return true;
+	} else {
+		// se impide soltar la carta
+		ultima_carta.setAttribute("draggable", "false");
+		return false;
 	}
+	
 }
