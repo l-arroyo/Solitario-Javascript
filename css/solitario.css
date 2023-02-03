@@ -13,6 +13,7 @@
 	position: absolute;
 	bottom: 0px;
 	right: 3px;
+	font-weight: bold;
 }
 
 .tituloLogo {
@@ -89,4 +90,9 @@ div.tapete.receptor {
 	width: 90px;
 	font-weight: bold;
 	background-color: #E65014;
+}
+
+.carta {
+	border: 1px solid #d4b283;
+	border-radius: 20px;
 }
