@@ -119,7 +119,7 @@ function reiniciar() {
 
 var cInterval;
 function arrancar_tiempo() {
-	var segundos=0;
+	var segundos = 0;
 	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
 	cInterval = window.setInterval(function () {
 		let seg = Math.trunc(segundos % 60);
@@ -128,12 +128,12 @@ function arrancar_tiempo() {
 		let tiempo = ((hor < 10) ? "0" + hor : "" + hor)
 			+ ":" + ((min < 10) ? "0" + min : "" + min)
 			+ ":" + ((seg < 10) ? "0" + seg : "" + seg);
-			document.getElementById("contador_tiempo").innerHTML = tiempo;
+		document.getElementById("contador_tiempo").innerHTML = tiempo;
 		segundos++;
-	},1000);
+	}, 1000);
 };
 
- // arrancar_tiempo
+// arrancar_tiempo
 /* =================== FIN TIMER Y RELOAD =================== */
 
 /**
@@ -160,6 +160,8 @@ function barajar(mazo) {
 		mazo.splice(i, 1); // Eliminamos la carta del mazo original
 	}
 	mazo = mazo_barajado; // Asignamos el mazo barajado al mazo original
+	//asignar al ultimo elemento del mazo la la funcion drag_carta
+	mazo[mazo.length - 1].setAttribute("ondragstart", "drag_carta(event)");
 	return mazo;
 } // barajar
 
@@ -178,12 +180,13 @@ function cargar_tapete_inicial(mazo) {
 		let carta = mazo[i]; // Carta actual
 		carta.style.width = "100px"; // Ajustamos el ancho de la carta
 		carta.style.position = "absolute"; // Ajustamos la posición de la carta
-		carta.style.top = (i*4)+"px"; // Ajustamos la coordenada top de la carta
-		carta.style.left = (i*4)+"px"; // Ajustamos la coordenada left de la carta
+		carta.style.top = (i * 4) + "px"; // Ajustamos la coordenada top de la carta
+		carta.style.left = (i * 4) + "px"; // Ajustamos la coordenada left de la carta
 		carta.setAttribute("draggable", "false"); // Ajustamos el atributo draggable de la carta
 		tapete_inicial.appendChild(carta); // Añadimos la carta al tapete inicial
+		carta.id = "carta" + i; // Ajustamos el id de la carta
 	}
-	mazo[mazo.length-1].setAttribute("draggable", "true"); // Solo la ultima carta debe ser draggable
+	mazo[mazo.length - 1].setAttribute("draggable", "true"); // Solo la ultima carta debe ser draggable
 
 } // cargar_tapete_inicial
 
@@ -233,7 +236,7 @@ function drop(event) {
 
 function comprueba() {
 	// comprueba cuál es la última carta del mazo
-	let ultima_carta = mazo[mazo.length-1];
+	let ultima_carta = mazo[mazo.length - 1];
 	// si la última carta del mazo es 12, se permitirá soltar la carta
 	if (ultima_carta.getAttribute("valor") == 12) {
 		// se permite soltar la carta
@@ -243,5 +246,5 @@ function comprueba() {
 		ultima_carta.setAttribute("draggable", "false");
 		return false;
 	}
-	
+
 }
