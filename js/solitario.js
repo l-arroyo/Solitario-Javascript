@@ -3,9 +3,9 @@
 // Array de palos
 let palos = ["ova", "cua", "hex", "cir"];
 // Array de número de cartas
-//let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 // En las pruebas iniciales solo se trabajará con cuatro cartas por palo:
-let numeros = [9, 10, 11, 12];
+//let numeros = [9, 10, 11, 12];
 
 // paso (top y left) en pixeles de una carta a la siguiente en un mazo
 let paso = 5;
@@ -43,10 +43,6 @@ let temporizador = null; // manejador del temporizador
 
 /***** FIN DECLARACIÓN DE VARIABLES GLOBALES *****/
 
-
-// Rutina asociada a boton reset: comenzar_juego
-document.getElementById("reset").onclick = comenzar_juego;
-
 // El juego arranca ya al cargar la página: no se espera a reiniciar
 /*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
 
@@ -60,11 +56,19 @@ function comenzar_juego() {
 	el elemento img, inclúyase como elemento del array mazo_inicial. 
 	*/
 
-	/*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
-
-
+	/** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
+	for (let i = 0; i < palos.length; i++) { // recorremos el array de palos
+		for (let j = 0; j < numeros.length; j++) { // recorremos el array de numeros
+			let carta = document.createElement("img"); // creamos la carta
+			carta.src = "imagenes/baraja/" + numeros[j] + "-" + palos[i] + ".png"; // le asignamos la ruta de la imagen combinando el numero y el palo
+			mazo_inicial.push(carta); // añadimos la carta al mazo
+		}
+	}
+	logMazo(mazo_inicial);
 	// Barajar
 	barajar(mazo_inicial);
+	console.log("BARAJAMOS")
+	logMazo(mazo_inicial);
 
 	// Dejar mazo_inicial en tapete inicial
 	cargar_tapete_inicial(mazo_inicial);
@@ -88,27 +92,29 @@ function comenzar_juego() {
 	debe ejecutar una función que a partir de la cuenta autoincrementada
 	de los segundos (segundos totales) visualice el tiempo oportunamente con el 
 	format hh:mm:ss en el contador adecuado.
-
+	
 	Para descomponer los segundos en horas, minutos y segundos pueden emplearse
 	las siguientes igualdades:
-
+	
 	segundos = truncar (   segundos_totales % (60)                 )
 	minutos  = truncar ( ( segundos_totales % (60*60) )     / 60   )
 	horas    = truncar ( ( segundos_totales % (60*60*24)) ) / 3600 )
-
+	
 	donde % denota la operación módulo (resto de la división entre los operadores)
-
+	
 	Así, por ejemplo, si la cuenta de segundos totales es de 134 s, entonces será:
 	   00:02:14
-
+	
 	Como existe la posibilidad de "resetear" el juego en cualquier momento, hay que 
 	evitar que exista más de un temporizador simultáneo, por lo que debería guardarse
 	el resultado de la llamada a setInterval en alguna variable para llamar oportunamente
 	a clearInterval en su caso.   
 */
 
+/* =================== TIMER Y RELOAD =================== */
+
 function arrancar_tiempo() {
-	/*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
+	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
 	if (temporizador) clearInterval(temporizador);
 	let hms = function () {
 		let seg = Math.trunc(segundos % 60);
@@ -125,7 +131,7 @@ function arrancar_tiempo() {
 	temporizador = setInterval(hms, 1000);
 
 } // arrancar_tiempo
-
+/* =================== FIN TIMER Y RELOAD =================== */
 
 /**
 	Si mazo es un array de elementos <img>, en esta rutina debe ser
@@ -133,17 +139,24 @@ function arrancar_tiempo() {
 	por referencia, de modo que si se altera el orden de dicho array
 	dentro de la rutina, esto aparecerá reflejado fuera de la misma.
 	Para reordenar el array puede emplearse el siguiente pseudo código:
-
+	
 	- Recorramos con i todos los elementos del array
 		- Sea j un indice cuyo valor sea un número aleatorio comprendido 
 			entre 0 y la longitud del array menos uno. Este valor aleatorio
 			puede conseguirse, por ejemplo con la instrucción JavaScript
 				Math.floor( Math.random() * LONGITUD_DEL_ARRAY );
 		- Se intercambia el contenido de la posición i-ésima con el de la j-ésima
-
+	
 */
 function barajar(mazo) {
 	/*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
+	let mazo_barajado = []; // Array que contendrá el mazo barajado
+	while (mazo.length > 0) { // Mientras el mazo no esté vacío
+		let i = Math.floor(Math.random() * mazo.length); // Carta aleatoria del mazo
+		mazo_barajado.push(mazo[i]); // Añadimos la carta al mazo barajado
+		mazo.splice(i, 1); // Eliminamos la carta del mazo original
+	}
+	mazo = mazo_barajado; // Asignamos el mazo barajado al mazo original
 } // barajar
 
 
@@ -182,3 +195,9 @@ function dec_contador(contador) {
 function set_contador(contador, valor) {
 	/*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
 } // set_contador
+
+function logMazo(mazo) {
+	for (let i = 0; i < mazo.length; i++) {
+		console.log(mazo[i].src);
+	}
+}

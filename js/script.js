@@ -3,10 +3,11 @@ class carta { // la clase carta tiene tres propiedades: figura, numero y su imag
     constructor(figura, numero) {
         this.figura = figura;
         this.numero = numero;
-        this.imagen = "imagenes/baraja/" + numero + "-" + figura + ".png";
+        this.objeto = document.createElement("img");
+        this.objeto.src = "imagenes/baraja/" + numero + "-" + figura + ".png";
     }
 
-    // GETTERS Y SETTERS
+    // GETTERS
     getFigura() {
         return this.figura;
     }
@@ -14,15 +15,11 @@ class carta { // la clase carta tiene tres propiedades: figura, numero y su imag
         return this.numero;
     }
     getImagen() {
-        return this.imagen;
+        return this.objeto.getAttribute("src");
     }
-    setFigura(figura) {
-        this.figura = figura;
+    getObjeto() {
+        return this.objeto;
     }
-    setNumero(numero) {
-        this.numero = numero;
-    }
-
     toString() {
         return this.numero + " de " + this.figura + "s";
     }
