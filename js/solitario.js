@@ -62,6 +62,8 @@ function comenzar_juego() {
 			carta.src = "imagenes/baraja/" + numeros[j] + "-" + palos[i] + ".png"; // le asignamos la ruta de la imagen combinando el numero y el palo
 			carta.setAttribute("valor", numeros[j]); // le asignamos el valor de la carta (para el juego
 			mazo_inicial.push(carta); // añadimos la carta al mazo
+			carta.id = numeros[j] + "-" + palos[i]; // le asignamos un id a la carta
+			console.log(carta.id);
 		}
 	}
 
@@ -184,7 +186,6 @@ function cargar_tapete_inicial(mazo) {
 		carta.style.left = (i * 4) + "px"; // Ajustamos la coordenada left de la carta
 		carta.setAttribute("draggable", "false"); // Ajustamos el atributo draggable de la carta
 		tapete_inicial.appendChild(carta); // Añadimos la carta al tapete inicial
-		carta.id = "carta" + i; // Ajustamos el id de la carta
 	}
 	mazo[mazo.length - 1].setAttribute("draggable", "true"); // Solo la ultima carta debe ser draggable
 	mazo[mazo.length - 1].setAttribute("ondragstart", "drag_carta(event)");
@@ -222,10 +223,7 @@ function set_contador(contador, valor) {
 
 // FUNCIONES ARRASTRAR CARTA, SOLTAR CARTA Y PERMITIR SOLTAR CARTA
 function drag_carta(event) {
-	event.dataTransfer.setData("text", event.target.id);
-	/*añadir a mazo_descartes la utlima carta del mazo*/
-	descarte = mazo_inicial.pop()
-	mazo_descartes.push(mazo[descarte]);
+	event.dataTransfer.setData("tapete", event.target.id);
 }
 
 function allowDrop(event) {
@@ -233,9 +231,21 @@ function allowDrop(event) {
 }
 
 function drop(event) {
-	event.preventDefault();
-	var data = event.dataTransfer.getData("text");
-	event.target.appendChild(document.getElementById(data));
+	var data = event.dataTransfer.getData("tapete");
+	carta = event.target.appendChild(document.getElementById(data)); // esta linea es la que hace que se pueda dejar la carta en el tapete
+
+	carta.setAttribute("class", "cartaTapete");
+
+	//eliminar carta del mazo inicial y ponerla en el mazo sobrantes
+	elimianda = mazo_inicial.pop();
+	mazo_sobrantes.push(elimianda);
+
+	//poner draggable true a la carta anterior
+	mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
+	mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
+
+	console.log(mazo_inicial.length + "cartas en el mazo inicial");
+	console.log(mazo_sobrantes.length + "cartas en el mazo sobrantes");
 }
 
 function comprueba() {
