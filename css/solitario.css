@@ -99,6 +99,6 @@ div.tapete.receptor {
 
 .cartaTapete {
 	top: -8px !important;
-	left: -5px !important;
-	transform: scale(0.8);
+	left: -3px !important;
+	transform: scale(0.7);
 }

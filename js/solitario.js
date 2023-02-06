@@ -60,7 +60,6 @@ function comenzar_juego() {
 		for (let j = 0; j < numeros.length; j++) { // recorremos el array de numeros
 			let carta = document.createElement("img"); // creamos la carta
 			carta.src = "imagenes/baraja/" + numeros[j] + "-" + palos[i] + ".png"; // le asignamos la ruta de la imagen combinando el numero y el palo
-			carta.setAttribute("valor", numeros[j]); // le asignamos el valor de la carta (para el juego
 			mazo_inicial.push(carta); // añadimos la carta al mazo
 			carta.id = numeros[j] + "-" + palos[i]; // le asignamos un id a la carta
 			console.log(carta.id);
@@ -227,38 +226,59 @@ function drag_carta(event) {
 }
 
 function allowDrop(event) {
-	event.preventDefault();
+	event.preventDefault(); // cancelar el comportamiento por defecto
 }
 
-function drop(event) {
-	var data = event.dataTransfer.getData("tapete");
-	carta = event.target.appendChild(document.getElementById(data)); // esta linea es la que hace que se pueda dejar la carta en el tapete
+function dropSobrantes(event) {
 
-	carta.setAttribute("class", "cartaTapete");
+	event.preventDefault(); // cancelar el comportamiento por defecto
 
-	//eliminar carta del mazo inicial y ponerla en el mazo sobrantes
+	var data = event.dataTransfer.getData("tapete"); // obtener id de la carta
+	carta = document.getElementById(data); // obtener el objeto carta con el id obtenido
+	tapete_sobrantes.appendChild(carta); // añadir la carta al tapete de sobrantes
+
+	carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
+
+	// eliminar carta del mazo inicial y añadirla al mazo de sobrantes
 	elimianda = mazo_inicial.pop();
 	mazo_sobrantes.push(elimianda);
 
-	//poner draggable true a la carta anterior
+	contador_sobrantes.innerHTML = +contador_sobrantes.innerHTML + 1; // incrementar contador de sobrantes
+
+	// poner draggable true a la carta anterior
 	mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
 	mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
+	
+	actualizaMovimientos();
 
+	/*
 	console.log(mazo_inicial.length + "cartas en el mazo inicial");
 	console.log(mazo_sobrantes.length + "cartas en el mazo sobrantes");
+	*/
 }
 
-function comprueba() {
-	// comprueba cuál es la última carta del mazo
-	let ultima_carta = mazo[mazo.length - 1];
-	// si la última carta del mazo es 12, se permitirá soltar la carta
-	if (ultima_carta.getAttribute("valor") == 12) {
-		// se permite soltar la carta
+function comprueba(id, mazo_original, mazo_destino) {
+
+	let palo = id.split("-")[1]; // el id de la carta tiene el formato numero-palo, necesitamos obtener solo el palo
+	let ultima_carta_original = mazo_original[mazo_original.length - 1]; // última carta del mazo original
+
+	// si el mazo original está vacío, y si la última carta del mazo original es la 12, se permite soltar la carta
+	if (mazo_original.length == 0 && valor == 12) {
 		return true;
+	} else if (mazo_original.length != 0) {
+		// si el mazo original no está vacío, se comprueba si la última carta del mazo original es 1 menos que la última carta del mazo destino
+		let ultima_carta_destino = mazo_destino[mazo_destino.length - 1]; // última carta del mazo destino
+		if (ultima_carta_original.id.split("-")[0] == ultima_carta_destino.id.split("-")[0] - 1) {
+			return true;
+		} else {
+			return false;
+		}
 	} else {
-		// se impide soltar la carta
-		ultima_carta.setAttribute("draggable", "false");
 		return false;
 	}
 
+}
+
+function actualizaMovimientos() {
+	cont_movimientos.innerHTML = +cont_movimientos.innerHTML + 1;
 }
