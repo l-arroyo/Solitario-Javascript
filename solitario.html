@@ -21,17 +21,25 @@
 		<!--/*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
 			Rellenar h1 e insertar el logo donde proceda
         	-->
-		<div class="tituloLogo container-fluid">
-			<h1 id="titulo">Juego de Solitario <img class="logo" src="imagenes/Logo.png" alt="logo" id="logo"></h1>
-
+		<div class="tituloLogo">
+			<h1 id="titulo">Juego de Solitario </h1>
+			<img class="logo" src="imagenes/Logo.png" alt="logo" id="logo">
 		</div>
 
 		<!-- Siguiente línea donde se indicará el tiempo transcurrido y la cantidad
 				de movimientos que se han hecho hasta el momento. Estos números se 
 				indicarán en los span internos -->
-		<h2 id="marcadores" class="row">
-			<span class="col-md-5">Tiempo: <span id="contador_tiempo">00:00:00</span></span>
-			<span class="col-md-5">Movimientos: <span id="contador_movimientos"></span></span>
+		<h2 id="marcadores" class="container">
+			<div class="col-md-6">
+				<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+				<span>Tiempo: <span id="contador_tiempo">00:00:00</span></span>
+			</div>
+			<div class="col-md-6">
+				<span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+				<span>Movimientos: <span id="contador_movimientos"></span></span>
+			</div>
+			
+			
 		</h2>
 
 		<!-- La "mesa" contendrá los 6 tapetes. En la parte superior dos de ellos 
@@ -59,7 +67,7 @@
 		</div>
 
 		<!-- Botón de reset que reinicia todo: partida, contadores de tiempo, de movimientos, ... -->
-		<button id="reset" class="btn btn-warning center-block" onclick="reiniciar()">Reiniciar</button>
+		<button id="reset" class="btn btn-warning center-block" onclick="reiniciar()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Reiniciar</button>
 	</div> <!-- class="central" -->
 
 	<!--!!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!!

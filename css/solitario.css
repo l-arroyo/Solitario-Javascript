@@ -17,38 +17,90 @@
 	z-index: 2;
 }
 
-.tituloLogo {
-	border: 3px #E65014;
+/* .tituloLogo {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	border-style: none none dashed none;
 	width: 100%;
 	height: auto;
 }
 
-/* Centrado del título y color */
+Centrado del título y color
 h1#titulo {
-	text-align: center;
 	color: #E65014;
 	padding-bottom: 0.5em;
 	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 .logo {
-	float: left;
 	margin-left: 1em;
-	height: 55px;
-}
+	height: 60px;
+} */
+
+.tituloLogo {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: auto;
+	height: auto;
+	padding: 0.5em;
+  }
+  
+  .tituloLogo {
+	background-color: #fff;
+	border: 7px inset #e5550c;
+	border-radius: 40px 0 ;
+	margin: 1em;
+  }
+  
+  h1#titulo {
+	color: #e5550c;
+	font-size: 34px;
+	font-weight: bold;
+	margin: 0;
+	text-shadow: 2px 2px #913507;
+  }
+  
+  .logo {
+	margin-left: 2em;
+	height: 60px;
+	animation: pulse 3s ease-in-out infinite;
+  }
+  
+  @keyframes pulse {
+	0% {transform: scale(1);}
+	50% {transform: scale(1.1);}
+	100% {transform: scale(1);}
+  }
+  
+  
 
 /* Centrado de los marcadores de tiempo y movimientos */
 h2#marcadores {
+	justify-content: center;
+	width: 50%;
 	text-align: center;
+	padding: 0.2em;
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 	font-size: 2em;
+	background-color: rgb(231, 231, 231);
+	border: 2px solid rgb(145, 145, 145);
+	border-radius: 50px;
+}
+
+.col-md-6 {
+	text-shadow: 2px 2px rgb(145, 145, 145);
+}
+
+.glyphicon-time, .glyphicon-transfer {
+	font-size: 20px;
 }
 
 /* Mesa que contiene a los tapetes centrados */
 div#mesa {
 	text-align: center;
-	margin: 20px;
+	margin: 10px;
 }
 
 /* Todos los tapetes con position relative para que
@@ -88,9 +140,11 @@ div.tapete.receptor {
 }
 
 #reset {
-	width: 90px;
+	width: auto;
 	font-weight: bold;
-	background-color: #E65014;
+	font-size: medium;
+	background-color: #d75826;
+	border: 3px solid#a04a28;
 }
 
 .carta {
