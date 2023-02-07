@@ -2,7 +2,7 @@
 // Array de palos
 let palos = ["ova", "cua", "hex", "cir"];
 // Array de número de cartas
-let numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+let numeros = [9, 10, 11, 12];
 // En las pruebas iniciales solo se trabajará con cuatro cartas por palo:
 //let numeros = [9, 10, 11, 12];
 
@@ -42,18 +42,9 @@ let temporizador = null; // manejador del temporizador
 
 /***** FIN DECLARACIÓN DE VARIABLES GLOBALES *****/
 
-// El juego arranca ya al cargar la página: no se espera a reiniciar
-/*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
 
-// Desarrollo del comienzo de juego
+// ==================== FUNCION QUE INICIA EL MAZO, TIMER Y CONTADORES ====================
 function comenzar_juego() {
-	/* Crear baraja, es decir crear el mazo_inicial. Este será un array cuyos 
-	elementos serán elementos HTML <img>, siendo cada uno de ellos una carta.
-	Sugerencia: en dos bucles for, bárranse los "palos" y los "numeros", formando
-	oportunamente el nombre del fichero png que contiene a la carta (recuérdese poner
-	el path correcto en la URL asociada al atributo src de <img>). Una vez creado
-	el elemento img, inclúyase como elemento del array mazo_inicial. 
-	*/
 
 	/** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
 	for (let i = 0; i < palos.length; i++) { // recorremos el array de palos
@@ -85,32 +76,9 @@ function comenzar_juego() {
 
 } // comenzar_juego
 
+// ==================== FIN FUNCION QUE INICIA EL MAZO, TIMER Y CONTADORES ====================
+
 comenzar_juego();
-
-
-/**
-	Se debe encargar de arrancar el temporizador: cada 1000 ms se
-	debe ejecutar una función que a partir de la cuenta autoincrementada
-	de los segundos (segundos totales) visualice el tiempo oportunamente con el 
-	format hh:mm:ss en el contador adecuado.
-	
-	Para descomponer los segundos en horas, minutos y segundos pueden emplearse
-	las siguientes igualdades:
-	
-	segundos = truncar (   segundos_totales % (60)                 )
-	minutos  = truncar ( ( segundos_totales % (60*60) )     / 60   )
-	horas    = truncar ( ( segundos_totales % (60*60*24)) ) / 3600 )
-	
-	donde % denota la operación módulo (resto de la división entre los operadores)
-	
-	Así, por ejemplo, si la cuenta de segundos totales es de 134 s, entonces será:
-	   00:02:14
-	
-	Como existe la posibilidad de "resetear" el juego en cualquier momento, hay que 
-	evitar que exista más de un temporizador simultáneo, por lo que debería guardarse
-	el resultado de la llamada a setInterval en alguna variable para llamar oportunamente
-	a clearInterval en su caso.   
-*/
 
 /* =================== TIMER Y RELOAD =================== */
 function reiniciar() {
@@ -134,26 +102,11 @@ function arrancar_tiempo() {
 	}, 1000);
 };
 
-// arrancar_tiempo
 /* =================== FIN TIMER Y RELOAD =================== */
 
-/**
-	Si mazo es un array de elementos <img>, en esta rutina debe ser
-	reordenado aleatoriamente. Al ser un array un objeto, se pasa
-	por referencia, de modo que si se altera el orden de dicho array
-	dentro de la rutina, esto aparecerá reflejado fuera de la misma.
-	Para reordenar el array puede emplearse el siguiente pseudo código:
-	
-	- Recorramos con i todos los elementos del array
-		- Sea j un indice cuyo valor sea un número aleatorio comprendido 
-			entre 0 y la longitud del array menos uno. Este valor aleatorio
-			puede conseguirse, por ejemplo con la instrucción JavaScript
-				Math.floor( Math.random() * LONGITUD_DEL_ARRAY );
-		- Se intercambia el contenido de la posición i-ésima con el de la j-ésima
-	
-*/
+// ==================== BARAJAR MAZO ====================
+
 function barajar(mazo) {
-	/*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
 	let mazo_barajado = []; // Array que contendrá el mazo barajado
 	while (mazo.length > 0) { // Mientras el mazo no esté vacío
 		let i = Math.floor(Math.random() * mazo.length); // Carta aleatoria del mazo
@@ -165,15 +118,10 @@ function barajar(mazo) {
 	return mazo;
 } // barajar
 
+// ==================== FIN BARAJAR MAZO ====================
 
+// ==================== CARGAR MAZO INICIAL EN TAPETE ====================
 
-/**
-	  En el elemento HTML que representa el tapete inicial (variable tapete_inicial)
-	se deben añadir como hijos todos los elementos <img> del array mazo.
-	Antes de añadirlos, se deberían fijar propiedades como la anchura, la posición,
-	coordenadas top y left, algun atributo de tipo data-...
-	Al final se debe ajustar el contador de cartas a la cantidad oportuna
-*/
 function cargar_tapete_inicial(mazo) {
 	/* !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! */
 	for (let i = 0; i < mazo.length; i++) { // Recorremos el mazo
@@ -191,8 +139,9 @@ function cargar_tapete_inicial(mazo) {
 
 } // cargar_tapete_inicial
 
+// ==================== FIN CARGAR MAZO INICIAL EN TAPETE ====================
+
 function set_contador(contador, valor) {
-	/*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
 	// asignarle el valor al objeto contador
 	texto = document.createTextNode(valor);
 	contador.appendChild(texto);
@@ -237,11 +186,9 @@ function dropSobrantes(event) {
 	actualizaMovimientos();
 	actualizaContadores();
 
-	/*
-	console.log(mazo_inicial.length + "cartas en el mazo inicial");
-	console.log(mazo_sobrantes.length + "cartas en el mazo sobrantes");
-	*/
 }
+
+// ==================== FUNCION QUE PERMITE DROPEAR LAS CARTAS EN LOS TAPETES ====================
 
 function dropTapete(objetoTapete, event) {
 	event.preventDefault(); // cancelar el comportamiento por defecto (abrir imagen)
@@ -249,72 +196,77 @@ function dropTapete(objetoTapete, event) {
 	carta = document.getElementById(data); // obtener el objeto carta con el id obtenido
 	switch (objetoTapete.id) { // obtener el id del objeto tapete
 		case "receptor1":
-			if(comprueba(carta, mazo_receptor1)) {
+			if (comprueba(carta, mazo_receptor1) && comrpuebaColor(carta, mazo_receptor1)) {
 				tapete_receptor1.appendChild(carta); // añadir la carta al tapete receptor 1
 				carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
-				transferirCarta(carta);
+				transferirCarta(carta, mazo_receptor1);
 
 				mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
 				mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
-				
+
 				actualizaContadores();
 				actualizaMovimientos();
 			}
-		break;
+			break;
 		case "receptor2":
-			if(comprueba(carta, mazo_receptor2)) {
+			if (comprueba(carta, mazo_receptor2) && comrpuebaColor(carta, mazo_receptor2)) {
 				tapete_receptor2.appendChild(carta); // añadir la carta al tapete receptor 2
 				carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
-				transferirCarta(carta);
+				transferirCarta(carta, mazo_receptor2);
 
 				mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
 				mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
-				
+
 				actualizaContadores();
 				actualizaMovimientos();
 			}
-		break;
+			break;
 		case "receptor3":
-			if(comprueba(carta, mazo_receptor3)) {
+			if (comprueba(carta, mazo_receptor3) && comrpuebaColor(carta, mazo_receptor3)) {
 				tapete_receptor3.appendChild(carta); // añadir la carta al tapete receptor 3
 				carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
-				transferirCarta(carta);
+				transferirCarta(carta, mazo_receptor3);
 
 				mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
 				mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
-				
+
 				actualizaContadores();
 				actualizaMovimientos();
 			}
-		break;
+			break;
 		case "receptor4":
-			if(comprueba(carta, mazo_receptor4)) {
+			if (comprueba(carta, mazo_receptor4) && comrpuebaColor(carta, mazo_receptor4)) {
 				tapete_receptor4.appendChild(carta); // añadir la carta al tapete receptor 4
 				carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
-				transferirCarta(carta);
+				transferirCarta(carta, mazo_receptor4);
 
 				mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
 				mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
-				
+
 				actualizaContadores();
 				actualizaMovimientos();
 			}
-		break;
+			break;
 
 	}
-	
+
 }
+
+// ==================== FIN FUNCION QUE PERMITE DROPEAR LAS CARTAS EN LOS TAPETE ====================
+
+// ==================== FUNCION QUE COMPRUEBA SI LA CARTA ES CORRESPONDIENTE ====================
 
 function comprueba(carta, mazo_destino) {
 	numero = carta.id.split("-")[0]; // el id de la cartga tiene el formato numero-palo, así que hacemos un split para obtener el numero
-	if(mazo_destino.length == 0) { // si el mazo destino está vacío
-		if(numero == 12) { // el numero de la carta debe ser 12
+
+	if (mazo_destino.length == 0) { // si el mazo destino está vacío
+		if (numero == 12) { // el numero de la carta debe ser 12
 			return true;
 		} else {
 			return false;
 		}
 	} else if (mazo_destino.length != 0) { // si el mazo destino no está vacío
-		if(numero == mazo_destino[mazo_destino.length - 1].id.split("-")[0] - 1) { // el numero de la carta debe ser el numero de la carta anterior - 1
+		if (numero == mazo_destino[mazo_destino.length - 1].id.split("-")[0] - 1) { // el numero de la carta debe ser el numero de la carta anterior - 1
 			return true;
 		} else {
 			return false;
@@ -322,17 +274,39 @@ function comprueba(carta, mazo_destino) {
 	}
 }
 
-function transferirCarta(carta) {
+function comrpuebaColor(carta, mazo_destino) {
+	figura = carta.id.split("-")[1];
+	if (figura == "cir" || figura == "hex") {
+		figura = "gris"
+	} else {
+		figura = "naranja"
+	}
+
+	if (mazo_destino[mazo_destino.length - 1].id.split("-")[1] == "gris" && figura == "naranja"
+		|| mazo_destino[mazo_destino.length - 1].id.split("-")[1] == "naranja" && figura == "gris") {
+		return true;
+	} else {
+		return false;
+	}
+
+
+}
+
+// ==================== FIN FUNCION QUE COMPRUEBA SI LA CARTA ES CORRESPONDIENTE ====================
+
+// ==================== FUNCION PARA ACTUALIZAR CONTADOR DESDE TAPETE INICIAL O SOBRANTES ====================
+
+function transferirCarta(carta, tapete) {
 	carta.setAttribute("draggable", "false"); // poner draggable false a la carta
 	// detectamos desde que mazo viene la carta
 	if (mazo_inicial[mazo_inicial.length - 1].id == carta.id) {
 		// eliminar carta del mazo inicial y añadirla al mazo receptor 1
 		elimianda = mazo_inicial.pop();
-		mazo_receptor1.push(elimianda);
+		tapete.push(elimianda);
 	} else if (mazo_sobrantes[mazo_sobrantes.length - 1].id == carta.id) {
 		// eliminar carta del mazo sobrantes y añadirla al mazo receptor 1
 		elimianda = mazo_sobrantes.pop();
-		mazo_receptor1.push(elimianda);
+		tapete.push(elimianda);
 	}
 }
 
