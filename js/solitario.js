@@ -231,7 +231,7 @@ function allowDrop(event) {
 
 function dropSobrantes(event) {
 
-	event.preventDefault(); // cancelar el comportamiento por defecto
+	event.preventDefault(); // cancelar el comportamiento por defecto (abrir imagen)
 
 	var data = event.dataTransfer.getData("tapete"); // obtener id de la carta
 	carta = document.getElementById(data); // obtener el objeto carta con el id obtenido
@@ -248,7 +248,7 @@ function dropSobrantes(event) {
 	// poner draggable true a la carta anterior
 	mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
 	mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
-	
+
 	actualizaMovimientos();
 
 	/*
@@ -256,6 +256,50 @@ function dropSobrantes(event) {
 	console.log(mazo_sobrantes.length + "cartas en el mazo sobrantes");
 	*/
 }
+
+function dropTapeteReceptor1(event) {
+	event.preventDefault(); // cancelar el comportamiento por defecto (abrir imagen)
+
+	var data = event.dataTransfer.getData("tapete"); // obtener id de la carta
+	carta = document.getElementById(data); // obtener el objeto carta con el id obtenido
+	tapete_receptor1.appendChild(carta); // añadir la carta al tapete de sobrantes
+
+	carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
+
+	// eliminar carta del mazo inicial y añadirla al mazo de sobrantes
+	elimianda = mazo_inicial.pop();
+	mazo_receptor1.push(elimianda);
+
+	contador_receptor1.innerHTML = +contador_receptor1.innerHTML + 1; // incrementar contador de sobrantes
+
+	// poner draggable true a la carta anterior
+	mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
+	mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
+	actualizaMovimientos();
+}
+
+function dropTapeteReceptor2(event) {
+	event.preventDefault(); // cancelar el comportamiento por defecto (abrir imagen)
+
+	var data = event.dataTransfer.getData("tapete"); // obtener id de la carta
+	carta = document.getElementById(data); // obtener el objeto carta con el id obtenido
+	tapete_receptor2.appendChild(carta); // añadir la carta al tapete de sobrantes
+
+	carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
+
+	// eliminar carta del mazo inicial y añadirla al mazo de sobrantes
+	elimianda = mazo_inicial.pop();
+	mazo_receptor2.push(elimianda);
+
+	contador_receptor2.innerHTML = +contador_receptor2.innerHTML + 1; // incrementar contador de sobrantes
+
+	// poner draggable true a la carta anterior
+	mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
+	mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
+	actualizaMovimientos();
+}
+
+
 
 function comprueba(id, mazo_original, mazo_destino) {
 
