@@ -14,6 +14,7 @@
 	bottom: 0px;
 	right: 3px;
 	font-weight: bold;
+	z-index: 2;
 }
 
 .tituloLogo {
@@ -97,7 +98,7 @@ div.tapete.receptor {
 	border-radius: 20px;
 }
 
-.cartaTapete {
+.cartaTapete { /* Centrar las cartas en los tapetes */
 	top: -8px !important;
 	left: -3px !important;
 	transform: scale(0.7);

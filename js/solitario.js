@@ -191,25 +191,6 @@ function cargar_tapete_inicial(mazo) {
 
 } // cargar_tapete_inicial
 
-/*
-	  Esta función debe incrementar el número correspondiente al contenido textual
-		  del elemento que actúa de contador
-*/
-function inc_contador(contador) {
-	contador.innerHTML = +contador.innerHTML + 1;
-} // inc_contador
-
-/*
-	Idem que anterior, pero decrementando 
-*/
-function dec_contador(contador) {
-	/* !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! */
-} // dec_contador
-
-/**
-	Similar a las anteriores, pero ajustando la cuenta al
-	valor especificado
-*/
 function set_contador(contador, valor) {
 	/*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
 	// asignarle el valor al objeto contador
@@ -217,8 +198,14 @@ function set_contador(contador, valor) {
 	contador.appendChild(texto);
 } // set_contador
 
-
-
+function actualizaContadores() {
+	contador_inicial.innerHTML = mazo_inicial.length;
+	contador_sobrantes.innerHTML = mazo_sobrantes.length;
+	contador_receptor1.innerHTML = mazo_receptor1.length;
+	contador_receptor2.innerHTML = mazo_receptor2.length;
+	contador_receptor3.innerHTML = mazo_receptor3.length;
+	contador_receptor4.innerHTML = mazo_receptor4.length;
+}
 
 // FUNCIONES ARRASTRAR CARTA, SOLTAR CARTA Y PERMITIR SOLTAR CARTA
 function drag_carta(event) {
@@ -243,13 +230,12 @@ function dropSobrantes(event) {
 	elimianda = mazo_inicial.pop();
 	mazo_sobrantes.push(elimianda);
 
-	contador_sobrantes.innerHTML = +contador_sobrantes.innerHTML + 1; // incrementar contador de sobrantes
-
 	// poner draggable true a la carta anterior
 	mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
 	mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
 
 	actualizaMovimientos();
+	actualizaContadores();
 
 	/*
 	console.log(mazo_inicial.length + "cartas en el mazo inicial");
@@ -257,70 +243,97 @@ function dropSobrantes(event) {
 	*/
 }
 
-function dropTapeteReceptor1(event) {
+function dropTapete(objetoTapete, event) {
 	event.preventDefault(); // cancelar el comportamiento por defecto (abrir imagen)
-
 	var data = event.dataTransfer.getData("tapete"); // obtener id de la carta
 	carta = document.getElementById(data); // obtener el objeto carta con el id obtenido
-	tapete_receptor1.appendChild(carta); // añadir la carta al tapete de sobrantes
+	switch (objetoTapete.id) { // obtener el id del objeto tapete
+		case "receptor1":
+			if(comprueba(carta, mazo_receptor1)) {
+				tapete_receptor1.appendChild(carta); // añadir la carta al tapete receptor 1
+				carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
+				transferirCarta(carta);
 
-	carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
+				mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
+				mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
+				
+				actualizaContadores();
+				actualizaMovimientos();
+			}
+		break;
+		case "receptor2":
+			if(comprueba(carta, mazo_receptor2)) {
+				tapete_receptor2.appendChild(carta); // añadir la carta al tapete receptor 2
+				carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
+				transferirCarta(carta);
 
-	// eliminar carta del mazo inicial y añadirla al mazo de sobrantes
-	elimianda = mazo_inicial.pop();
-	mazo_receptor1.push(elimianda);
+				mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
+				mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
+				
+				actualizaContadores();
+				actualizaMovimientos();
+			}
+		break;
+		case "receptor3":
+			if(comprueba(carta, mazo_receptor3)) {
+				tapete_receptor3.appendChild(carta); // añadir la carta al tapete receptor 3
+				carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
+				transferirCarta(carta);
 
-	contador_receptor1.innerHTML = +contador_receptor1.innerHTML + 1; // incrementar contador de sobrantes
+				mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
+				mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
+				
+				actualizaContadores();
+				actualizaMovimientos();
+			}
+		break;
+		case "receptor4":
+			if(comprueba(carta, mazo_receptor4)) {
+				tapete_receptor4.appendChild(carta); // añadir la carta al tapete receptor 4
+				carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
+				transferirCarta(carta);
 
-	// poner draggable true a la carta anterior
-	mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
-	mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
-	actualizaMovimientos();
+				mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
+				mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
+				
+				actualizaContadores();
+				actualizaMovimientos();
+			}
+		break;
+
+	}
+	
 }
 
-function dropTapeteReceptor2(event) {
-	event.preventDefault(); // cancelar el comportamiento por defecto (abrir imagen)
-
-	var data = event.dataTransfer.getData("tapete"); // obtener id de la carta
-	carta = document.getElementById(data); // obtener el objeto carta con el id obtenido
-	tapete_receptor2.appendChild(carta); // añadir la carta al tapete de sobrantes
-
-	carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
-
-	// eliminar carta del mazo inicial y añadirla al mazo de sobrantes
-	elimianda = mazo_inicial.pop();
-	mazo_receptor2.push(elimianda);
-
-	contador_receptor2.innerHTML = +contador_receptor2.innerHTML + 1; // incrementar contador de sobrantes
-
-	// poner draggable true a la carta anterior
-	mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
-	mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
-	actualizaMovimientos();
-}
-
-
-
-function comprueba(id, mazo_original, mazo_destino) {
-
-	let palo = id.split("-")[1]; // el id de la carta tiene el formato numero-palo, necesitamos obtener solo el palo
-	let ultima_carta_original = mazo_original[mazo_original.length - 1]; // última carta del mazo original
-
-	// si el mazo original está vacío, y si la última carta del mazo original es la 12, se permite soltar la carta
-	if (mazo_original.length == 0 && valor == 12) {
-		return true;
-	} else if (mazo_original.length != 0) {
-		// si el mazo original no está vacío, se comprueba si la última carta del mazo original es 1 menos que la última carta del mazo destino
-		let ultima_carta_destino = mazo_destino[mazo_destino.length - 1]; // última carta del mazo destino
-		if (ultima_carta_original.id.split("-")[0] == ultima_carta_destino.id.split("-")[0] - 1) {
+function comprueba(carta, mazo_destino) {
+	numero = carta.id.split("-")[0]; // el id de la cartga tiene el formato numero-palo, así que hacemos un split para obtener el numero
+	if(mazo_destino.length == 0) { // si el mazo destino está vacío
+		if(numero == 12) { // el numero de la carta debe ser 12
 			return true;
 		} else {
 			return false;
 		}
-	} else {
-		return false;
+	} else if (mazo_destino.length != 0) { // si el mazo destino no está vacío
+		if(numero == mazo_destino[mazo_destino.length - 1].id.split("-")[0] - 1) { // el numero de la carta debe ser el numero de la carta anterior - 1
+			return true;
+		} else {
+			return false;
+		}
 	}
+}
 
+function transferirCarta(carta) {
+	carta.setAttribute("draggable", "false"); // poner draggable false a la carta
+	// detectamos desde que mazo viene la carta
+	if (mazo_inicial[mazo_inicial.length - 1].id == carta.id) {
+		// eliminar carta del mazo inicial y añadirla al mazo receptor 1
+		elimianda = mazo_inicial.pop();
+		mazo_receptor1.push(elimianda);
+	} else if (mazo_sobrantes[mazo_sobrantes.length - 1].id == carta.id) {
+		// eliminar carta del mazo sobrantes y añadirla al mazo receptor 1
+		elimianda = mazo_sobrantes.pop();
+		mazo_receptor1.push(elimianda);
+	}
 }
 
 function actualizaMovimientos() {
