@@ -87,6 +87,7 @@ h2#marcadores {
 	background-color: rgb(231, 231, 231);
 	border: 2px solid rgb(145, 145, 145);
 	border-radius: 50px;
+	
 }
 
 .col-md-6 {
@@ -148,12 +149,36 @@ div.tapete.receptor {
 }
 
 .carta {
-	border: 1px solid #d4b283;
-	border-radius: 20px;
+	border: 1.7px solid #c7af8c;
+	border-radius: 25px;
 }
+
+.carta:hover {
+	animation: scale-up 0.5s ease-in-out forwards;
+	border: 1.7px solid #928167;
+}
+
+@keyframes scale-up {
+	0% {
+	  transform: scale(1);
+	}
+	100% {
+	  transform: scale(1.05);
+	}
+  }
 
 .cartaTapete { /* Centrar las cartas en los tapetes */
 	top: -8px !important;
 	left: -3px !important;
-	transform: scale(0.7);
+	animation: scale-down 0.5s ease-in-out forwards;
+  	transform: scale(1);
 }
+
+@keyframes scale-down {
+	0% {
+	  transform: scale(0.9);
+	}
+	100% {
+	  transform: scale(0.7);
+	}
+  }

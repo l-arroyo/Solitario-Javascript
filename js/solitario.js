@@ -2,7 +2,7 @@
 // Array de palos
 let palos = ["ova", "cua", "hex", "cir"];
 // Array de número de cartas
-let numeros = [10, 11, 12];
+let numeros = [ 10, 11, 12];
 // En las pruebas iniciales solo se trabajará con cuatro cartas por palo:
 //let numeros = [9, 10, 11, 12];
 
@@ -125,15 +125,25 @@ function barajar(mazo) {
 function cargar_tapete_inicial(mazo) {
 	/* !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! */
 	for (let i = 0; i < mazo.length; i++) { // Recorremos el mazo
-		let carta = mazo[i]; // Carta actual
-		carta.setAttribute("class", "carta tapete_inicial"); // Ajustamos la clase de la carta
-		carta.style.width = "100px"; // Ajustamos el ancho de la carta
-		carta.style.position = "absolute"; // Ajustamos la posición de la carta
-		carta.style.top = (i * 4) + "px"; // Ajustamos la coordenada top de la carta
-		carta.style.left = (i * 4) + "px"; // Ajustamos la coordenada left de la carta
-		carta.setAttribute("draggable", "false"); // Ajustamos el atributo draggable de la carta
-		tapete_inicial.appendChild(carta); // Añadimos la carta al tapete inicial
+		(function(i) {
+			setTimeout(function() {
+				let carta = mazo[i]; // Carta actual
+				carta.setAttribute("class", "carta tapete_inicial"); // Ajustamos la clase de la carta
+				carta.style.width = "100px"; // Ajustamos el ancho de la carta
+				carta.style.position = "absolute"; // Ajustamos la posición de la carta
+				carta.style.top = ((i+2) * 3.8) + "px"; // Ajustamos la coordenada top de la carta
+				carta.style.left = ((i+2) * 4.5) + "px"; // Ajustamos la coordenada left de la carta
+				carta.setAttribute("draggable", "false"); // Ajustamos el atributo draggable de la carta
+				tapete_inicial.appendChild(carta); // Añadimos la carta al tapete inicial
+				
+				if (i === mazo.length - 1) { // Solo la última carta debe ser draggable
+					carta.setAttribute("draggable", "true");
+					carta.setAttribute("ondragstart", "drag_carta(event)");
+				}
+			}, i * 30); // 1000ms = 1 second
+		})(i);
 	}
+	
 	mazo[mazo.length - 1].setAttribute("draggable", "true"); // Solo la ultima carta debe ser draggable
 	mazo[mazo.length - 1].setAttribute("ondragstart", "drag_carta(event)");
 
