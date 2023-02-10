@@ -315,7 +315,6 @@ function compruebaColor(carta, mazo_destino) {
 		return true;
 	}
 
-
 }
 
 // ==================== FIN FUNCION QUE COMPRUEBA SI LA CARTA ES CORRESPONDIENTE ====================
