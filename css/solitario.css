@@ -10,175 +10,168 @@
    derecha (position absolute) de los respectivos tapetes (position relative).
 */
 .contador {
-	position: absolute;
-	bottom: 0px;
-	right: 3px;
-	font-weight: bold;
-	z-index: 2;
+  position: absolute;
+  bottom: 0px;
+  right: 3px;
+  font-weight: bold;
+  z-index: 2;
 }
 
-/* .tituloLogo {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-style: none none dashed none;
-	width: 100%;
-	height: auto;
+.tituloLogo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+  padding: 0.5em;
 }
 
-Centrado del título y color
+.tituloLogo {
+  background-color: #fff;
+  border: 7px inset #e5550c;
+  border-radius: 40px 0;
+  margin: 1em;
+}
+
 h1#titulo {
-	color: #E65014;
-	padding-bottom: 0.5em;
-	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+  color: #e5550c;
+  font-size: 34px;
+  font-weight: bold;
+  margin: 0;
+  text-shadow: 2px 2px #913507;
 }
 
 .logo {
-	margin-left: 1em;
-	height: 60px;
-} */
+  margin-left: 2em;
+  height: 60px;
+  animation: pulse 3s ease-in-out infinite;
+}
 
-.tituloLogo {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: auto;
-	height: auto;
-	padding: 0.5em;
+@keyframes pulse {
+  0% {
+    transform: scale(1);
   }
-  
-  .tituloLogo {
-	background-color: #fff;
-	border: 7px inset #e5550c;
-	border-radius: 40px 0 ;
-	margin: 1em;
+  50% {
+    transform: scale(1.1);
   }
-  
-  h1#titulo {
-	color: #e5550c;
-	font-size: 34px;
-	font-weight: bold;
-	margin: 0;
-	text-shadow: 2px 2px #913507;
+  100% {
+    transform: scale(1);
   }
-  
-  .logo {
-	margin-left: 2em;
-	height: 60px;
-	animation: pulse 3s ease-in-out infinite;
-  }
-  
-  @keyframes pulse {
-	0% {transform: scale(1);}
-	50% {transform: scale(1.1);}
-	100% {transform: scale(1);}
-  }
-  
-  
+}
 
 /* Centrado de los marcadores de tiempo y movimientos */
 h2#marcadores {
-	justify-content: center;
-	width: 50%;
-	text-align: center;
-	padding: 0.2em;
-	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-	font-size: 2em;
-	background-color: rgb(231, 231, 231);
-	border: 2px solid rgb(145, 145, 145);
-	border-radius: 50px;
-	
+  justify-content: center;
+  width: 50%;
+  text-align: center;
+  padding: 0.2em;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 2em;
+  background-color: rgb(231, 231, 231);
+  border: 2px solid rgb(145, 145, 145);
+  border-radius: 50px;
 }
 
 .col-md-6 {
-	text-shadow: 2px 2px rgb(145, 145, 145);
+  text-shadow: 2px 2px rgb(145, 145, 145);
 }
 
-.glyphicon-time, .glyphicon-transfer {
-	font-size: 20px;
+.glyphicon-time,
+.glyphicon-transfer {
+  font-size: 20px;
 }
 
 /* Mesa que contiene a los tapetes centrados */
 div#mesa {
-	text-align: center;
-	margin: 10px;
+  text-align: center;
+  margin: 10px;
 }
 
 /* Todos los tapetes con position relative para que
    los respectivos mazos (arrays de <img>) puedan
    posicionarse de manera absoluta respecto a ellos */
 div.tapete {
-	border-radius: 5%;
-	display: inline-block;
-	position: relative;
-	margin: 8px;
+  border-radius: 5%;
+  display: inline-block;
+  position: relative;
+  margin: 8px;
 }
 
 /* Dimensiones y color de fondo para el tapete inicial */
 div.tapete#inicial {
-	width: 340px;
-	height: 340px;
-	background-color: lightgrey;
-	border: 3px dashed rgb(145, 145, 145);
+  width: 340px;
+  height: 340px;
+  background-color: lightgrey;
+  border: 3px dashed rgb(145, 145, 145);
 }
 
 /* Dimensiones para todos los tapetes salvo el inicial */
 div.tapete:not(#inicial) {
-	height: 125px;
-	width: 100px;
+  height: 125px;
+  width: 100px;
 }
 
 /* Color de fondo para el tapete de las cartas sobrantes */
 div.tapete#sobrantes {
-	background-color: #e19576;
-	border: 3px dashed#d75826;
+  background-color: #e19576;
+  border: 3px dashed#d75826;
 }
 
 /* Color de fondo de los tapetes receptores */
 div.tapete.receptor {
-	background-color: lightgreen;
-	border: 3px dashed rgb(98, 162, 98);
+  background-color: lightgreen;
+  border: 3px dashed rgb(98, 162, 98);
 }
 
 #reset {
-	width: auto;
-	font-weight: bold;
-	font-size: medium;
-	background-color: #d75826;
-	border: 3px solid#a04a28;
+  width: auto;
+  font-weight: bold;
+  font-size: medium;
+  background-color: #d75826;
+  border: 3px solid#a04a28;
 }
 
 .carta {
-	border: 1.7px solid #c7af8c;
-	border-radius: 25px;
+  border: 1.7px solid #c7af8c;
+  border-radius: 25px;
 }
 
-.carta:hover {
-	animation: scale-up 0.5s ease-in-out forwards;
-	border: 1.7px solid #928167;
+.carta:last-child:hover {
+  animation: move-up 0.3s ease-in-out forwards;
+  border: 1.7px solid #928167;
 }
 
 @keyframes scale-up {
-	0% {
-	  transform: scale(1);
-	}
-	100% {
-	  transform: scale(1.05);
-	}
+  0% {
+    transform: scale(1);
   }
+  100% {
+    transform: scale(1.05);
+  }
+}
 
-.cartaTapete { /* Centrar las cartas en los tapetes */
-	top: -8px !important;
-	left: -3px !important;
-	animation: scale-down 0.5s ease-in-out forwards;
-  	transform: scale(1);
+@keyframes move-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
+.cartaTapete {
+  /* Centrar las cartas en los tapetes */
+  top: -8px !important;
+  left: -3px !important;
+  animation: scale-down 0.5s ease-in-out forwards;
+  transform: scale(1);
 }
 
 @keyframes scale-down {
-	0% {
-	  transform: scale(0.9);
-	}
-	100% {
-	  transform: scale(0.7);
-	}
+  0% {
+    transform: scale(0.9);
   }
+  100% {
+    transform: scale(0.7);
+  }
+}
