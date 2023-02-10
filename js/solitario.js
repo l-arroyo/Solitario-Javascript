@@ -158,6 +158,7 @@ function set_contador(contador, valor) {
 } // set_contador
 
 function actualizaContadores() {
+	cont_movimientos.innerHTML = +cont_movimientos.innerHTML + 1;
 	contador_inicial.innerHTML = mazo_inicial.length;
 	contador_sobrantes.innerHTML = mazo_sobrantes.length;
 	contador_receptor1.innerHTML = mazo_receptor1.length;
@@ -213,53 +214,80 @@ function dropTapete(objetoTapete, event) {
 				carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
 				transferirCarta(carta, mazo_receptor1);
 
-				mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
-				mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
-
+				if(mazo_inicial.length == 0){
+					if(mazo_sobrantes.length == 0){
+						victoria();
+					} else {
+						rebarajar();
+					}
+				} else {
+					mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
+					mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
+				}
+				
 				actualizaContadores();
-				actualizaMovimientos();
 			}
-			break;
+		break;
 		case "receptor2":
 			if (compruebaNumero(carta, mazo_receptor2) && compruebaColor(carta, mazo_receptor2)) {
 				tapete_receptor2.appendChild(carta); // añadir la carta al tapete receptor 2
 				carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
 				transferirCarta(carta, mazo_receptor2);
 
-				mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
-				mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
+				if(mazo_inicial.length == 0){
+					if(mazo_sobrantes.length == 0){
+						victoria();
+					} else {
+						rebarajar();
+					}
+				} else {
+					mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
+					mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
+				}
 
 				actualizaContadores();
-				actualizaMovimientos();
 			}
-			break;
+		break;
 		case "receptor3":
 			if (compruebaNumero(carta, mazo_receptor3) && compruebaColor(carta, mazo_receptor3)) {
 				tapete_receptor3.appendChild(carta); // añadir la carta al tapete receptor 3
 				carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
 				transferirCarta(carta, mazo_receptor3);
 
-				mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
-				mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
+				if(mazo_inicial.length == 0){
+					if(mazo_sobrantes.length == 0){
+						victoria();
+					} else {
+						rebarajar();
+					}
+				} else {
+					mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
+					mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
+				}
 
 				actualizaContadores();
-				actualizaMovimientos();
 			}
-			break;
+		break;
 		case "receptor4":
 			if (compruebaNumero(carta, mazo_receptor4) && compruebaColor(carta, mazo_receptor4)) {
 				tapete_receptor4.appendChild(carta); // añadir la carta al tapete receptor 4
 				carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
 				transferirCarta(carta, mazo_receptor4);
 
-				mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
-				mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
+				if(mazo_inicial.length == 0){
+					if(mazo_sobrantes.length == 0){
+						victoria();
+					} else {
+						rebarajar();
+					}
+				} else {
+					mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
+					mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
+				}
 
 				actualizaContadores();
-				actualizaMovimientos();
 			}
-			break;
-
+		break;
 	}
 
 }
@@ -315,6 +343,7 @@ function compruebaColor(carta, mazo_destino) {
 		return true;
 	}
 
+
 }
 
 // ==================== FIN FUNCION QUE COMPRUEBA SI LA CARTA ES CORRESPONDIENTE ====================
@@ -336,14 +365,13 @@ function transferirCarta(carta, tapete) {
 }
 
 function actualizaMovimientos() {
-	cont_movimientos.innerHTML = +cont_movimientos.innerHTML + 1;
 	// Comprobamos si quedan cartas en el mazo inicial
-	if (mazo_inicial.length == 0 && mazo_sobrantes.length == 0) {
+	if (mazo_inicial.length == 0 && mazo_sobrantes.length == 0) { // si no quedan cartas en el mazo inicial ni en el mazo sobrantes
 		alert("¡Has ganado la partida en " + cont_movimientos.innerHTML + " movimientos!");
-	} else if (mazo_inicial.length == 0 && mazo_sobrantes.length != 0) {
-		rebarajar();
-	} else if (mazo_inicial.length != 0) {
-		return true;
+	} else if (mazo_inicial.length == 0 && mazo_sobrantes.length != 0) { // si no quedan cartas en el mazo inicial pero si en el mazo sobrantes
+		rebarajar(); // rebarajamos
+	} else if (mazo_inicial.length != 0) { // si quedan cartas en el mazo inicial
+		return true; // no hacemos nada
 	}
 }
 
@@ -352,4 +380,9 @@ function rebarajar() {
 	mazo_sobrantes = [];
 	cargar_tapete_inicial(mazo_inicial);
 	actualizaContadores();
+}
+
+function victoria() {
+	alert("¡Has ganado la partida en " + cont_movimientos.innerHTML + " movimientos!");
+	window.location.reload();
 }
