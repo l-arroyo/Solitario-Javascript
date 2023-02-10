@@ -349,8 +349,8 @@ function actualizaMovimientos() {
 }
 
 function rebarajar() {
-	for (var i = 0; i < mazo_sobrantes.length; i++) {
-		mazo_inicial.push(mazo_sobrantes[Math.floor(Math.random() * mazo_sobrantes.length - 1)])
-	}
+	mazo_inicial = barajar(mazo_sobrantes);
+	mazo_sobrantes = [];
 	cargar_tapete_inicial(mazo_inicial);
+	actualizaContadores();
 }
