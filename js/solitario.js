@@ -178,23 +178,24 @@ function allowDrop(event) {
 function dropSobrantes(event) {
 
 	event.preventDefault(); // cancelar el comportamiento por defecto (abrir imagen)
-
 	var data = event.dataTransfer.getData("tapete"); // obtener id de la carta
 	carta = document.getElementById(data); // obtener el objeto carta con el id obtenido
-	tapete_sobrantes.appendChild(carta); // añadir la carta al tapete de sobrantes
+	if(carta.getAttribute("class") == "cartaTapete") {} else {
+		tapete_sobrantes.appendChild(carta); // añadir la carta al tapete de sobrantes
 
-	carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
+		carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
 
-	// eliminar carta del mazo inicial y añadirla al mazo de sobrantes
-	elimianda = mazo_inicial.pop();
-	mazo_sobrantes.push(elimianda);
+		// eliminar carta del mazo inicial y añadirla al mazo de sobrantes
+		eliminada = mazo_inicial.pop();
+		mazo_sobrantes.push(eliminada);
 
-	actualizaContadores();
-	if (actualizaMovimientos() == true) {
+		actualizaContadores();
+		if (actualizaMovimientos() == true) {
 
-		// poner draggable true a la carta anterior
-		mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
-		mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
+			// poner draggable true a la carta anterior
+			mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
+			mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
+		}
 	}
 
 }
