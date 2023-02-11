@@ -3,11 +3,6 @@
 let palos = ["ova", "cua", "hex", "cir"];
 // Array de número de cartas
 let numeros = [12];
-// En las pruebas iniciales solo se trabajará con cuatro cartas por palo:
-//let numeros = [9, 10, 11, 12];
-
-// paso (top y left) en pixeles de una carta a la siguiente en un mazo
-let paso = 5;
 
 // Tapetes				
 let tapete_inicial = document.getElementById("inicial");
@@ -41,9 +36,10 @@ let segundos = 0;    // cuenta de segundos
 let temporizador = null; // manejador del temporizador
 
 // Score
-let highscore = 0
-const highscoreField = document.querySelector('.highscore')
-
+let highscore = localStorage.getItem("highscore");
+if (highscore == null) {
+	highscore = 0;
+}
 
 /***** FIN DECLARACIÓN DE VARIABLES GLOBALES *****/
 
@@ -78,6 +74,7 @@ function comenzar_juego() {
 
 	// Arrancar el conteo de tiempo
 	arrancar_tiempo();
+	high_score.innerHTML = highscore;
 
 } // comenzar_juego
 
@@ -392,12 +389,23 @@ function rebarajar() {
 }
 
 function victoria() {
+	actualizaContadores();
 	alert("¡Has ganado la partida en " + cont_movimientos.innerHTML + " movimientos!");
-	document.body.style.backgroundColor = '#60b347';
+	guardarHighScore();
 	parar_tiempo();
 }
 
 /* funcion que guarda dentro de high_score el valor de cont_movimientos */
 function guardarHighScore() {
-	high_score = cont_movimientos.innerHTML;
+
+	if(highscore != 0) {
+		if(cont_movimientos.innerHTML < highscore) {
+			localStorage.setItem("highscore", cont_movimientos.innerHTML);
+		}
+	} else {
+		localStorage.setItem("highscore", cont_movimientos.innerHTML);
+	}
+	
+	// mostrar highscore
+	high_score.innerHTML = localStorage.getItem("highscore");
 }
