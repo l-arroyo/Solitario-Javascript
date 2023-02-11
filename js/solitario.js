@@ -2,7 +2,7 @@
 // Array de palos
 let palos = ["ova", "cua", "hex", "cir"];
 // Array de número de cartas
-let numeros = [12];
+let numeros = [1,2,3,4,5,6,7,8,9,10,11,12];
 
 // Tapetes				
 let tapete_inicial = document.getElementById("inicial");
@@ -146,7 +146,9 @@ function cargar_tapete_inicial(mazo) {
 					carta.setAttribute("draggable", "true");
 					carta.setAttribute("ondragstart", "drag_carta(event)");
 				}
-			}, i * 30); // 1000ms = 1 second
+			}, i * 50); // 1000ms = 1 second
+
+			
 		})(i);
 	}
 
@@ -154,6 +156,32 @@ function cargar_tapete_inicial(mazo) {
 	mazo[mazo.length - 1].setAttribute("ondragstart", "drag_carta(event)");
 
 } // cargar_tapete_inicial
+
+function animateGIF(id, src, height) {
+	var gif = document.getElementById(id);
+	gif.src = src;
+	gif.style.display = "inline";
+	gif.style.transform = "translateY(0)";
+	
+	setTimeout(function() {
+		document.body.style.overflow = "hidden";
+		var fadeOutInterval = setInterval(function () {
+		var translateY = parseInt(gif.style.transform.match(/\d+/g));
+		if (translateY >= height) {
+		  clearInterval(fadeOutInterval);
+		  gif.style.display = "none";
+		} else {
+		  gif.style.transform = "translateY(" + (translateY + 10) + "px)";
+		}
+	  }, 60);
+	}, 2430);
+  }
+  
+  // Uso de la función
+  animateGIF("gif", "imagenes/luigi_poker.gif", 400);
+  
+
+
 
 // ==================== FIN CARGAR MAZO INICIAL EN TAPETE ====================
 

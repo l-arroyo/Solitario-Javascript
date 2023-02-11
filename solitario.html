@@ -4,23 +4,18 @@
 
 <head>
 	<title>Solitario FP Los Enlaces</title>
+	<link rel="icon" href="imagenes/favicon.png" />
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="css/solitario.css">
-	<link rel="stylesheet" href="css/cartas.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<script src="js/timer.js"></script>
 
 </head>
 
 <body>
 	<div class="central">
 		<!-- Título principal -->
-
-		<!--/*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
-			Rellenar h1 e insertar el logo donde proceda
-        	-->
 		<div class="tituloLogo">
 			<h1 id="titulo">Juego de Solitario </h1>
 			<img class="logo" src="imagenes/Logo.png" alt="logo" id="logo">
@@ -55,7 +50,12 @@
 					-->
 				<div id="sobrantes" class="tapete" ondrop="dropSobrantes(event)" ondragover="allowDrop(event)"><span
 						id="contador_sobrantes" class="contador"></span></div>
+
+			
 			</div>
+
+			<img id="gif" src="" style="display:none;">
+
 			<div id="receptor1" class="tapete receptor" ondrop="dropTapete(this, event)" ondragover="allowDrop(event)">
 				<span id="contador_receptor1" class="contador"></span>
 			</div><!--
@@ -82,6 +82,8 @@
 		Enlazar el fichero de javascript que contiene la lógica del juego
 		-->
 	<script src="js/solitario.js"></script>
+	
+
 </body>
 
 </html>
