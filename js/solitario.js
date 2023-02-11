@@ -2,7 +2,7 @@
 // Array de palos
 let palos = ["ova", "cua", "hex", "cir"];
 // Array de número de cartas
-let numeros = [ 10, 11, 12];
+let numeros = [12];
 // En las pruebas iniciales solo se trabajará con cuatro cartas por palo:
 //let numeros = [9, 10, 11, 12];
 
@@ -33,11 +33,16 @@ let cont_receptor2 = document.getElementById("contador_receptor2");
 let cont_receptor3 = document.getElementById("contador_receptor3");
 let cont_receptor4 = document.getElementById("contador_receptor4");
 let cont_movimientos = document.getElementById("contador_movimientos");
+let high_score = document.getElementById("high_score");
 
 // Tiempo - timer cuando cargue la página
 let cont_tiempo = document.getElementById("cont_tiempo"); // span cuenta tiempo
 let segundos = 0;    // cuenta de segundos
 let temporizador = null; // manejador del temporizador
+
+// Score
+let highscore = 0
+const highscoreField = document.querySelector('.highscore')
 
 
 /***** FIN DECLARACIÓN DE VARIABLES GLOBALES *****/
@@ -102,6 +107,10 @@ function arrancar_tiempo() {
 	}, 1000);
 };
 
+function parar_tiempo() {
+	window.clearInterval(cInterval);
+}
+
 /* =================== FIN TIMER Y RELOAD =================== */
 
 // ==================== BARAJAR MAZO ====================
@@ -125,17 +134,17 @@ function barajar(mazo) {
 function cargar_tapete_inicial(mazo) {
 	/* !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! */
 	for (let i = 0; i < mazo.length; i++) { // Recorremos el mazo
-		(function(i) {
-			setTimeout(function() {
+		(function (i) {
+			setTimeout(function () {
 				let carta = mazo[i]; // Carta actual
 				carta.setAttribute("class", "carta tapete_inicial"); // Ajustamos la clase de la carta
 				carta.style.width = "100px"; // Ajustamos el ancho de la carta
 				carta.style.position = "absolute"; // Ajustamos la posición de la carta
-				carta.style.top = ((i+2) * 3.8) + "px"; // Ajustamos la coordenada top de la carta
-				carta.style.left = ((i+2) * 4.5) + "px"; // Ajustamos la coordenada left de la carta
+				carta.style.top = ((i + 2) * 3.8) + "px"; // Ajustamos la coordenada top de la carta
+				carta.style.left = ((i + 2) * 4.5) + "px"; // Ajustamos la coordenada left de la carta
 				carta.setAttribute("draggable", "false"); // Ajustamos el atributo draggable de la carta
 				tapete_inicial.appendChild(carta); // Añadimos la carta al tapete inicial
-				
+
 				if (i === mazo.length - 1) { // Solo la última carta debe ser draggable
 					carta.setAttribute("draggable", "true");
 					carta.setAttribute("ondragstart", "drag_carta(event)");
@@ -143,7 +152,7 @@ function cargar_tapete_inicial(mazo) {
 			}, i * 30); // 1000ms = 1 second
 		})(i);
 	}
-	
+
 	mazo[mazo.length - 1].setAttribute("draggable", "true"); // Solo la ultima carta debe ser draggable
 	mazo[mazo.length - 1].setAttribute("ondragstart", "drag_carta(event)");
 
@@ -181,7 +190,7 @@ function dropSobrantes(event) {
 	event.preventDefault(); // cancelar el comportamiento por defecto (abrir imagen)
 	var data = event.dataTransfer.getData("tapete"); // obtener id de la carta
 	carta = document.getElementById(data); // obtener el objeto carta con el id obtenido
-	if(carta.getAttribute("class") == "cartaTapete") {} else {
+	if (carta.getAttribute("class") == "cartaTapete") { } else {
 		tapete_sobrantes.appendChild(carta); // añadir la carta al tapete de sobrantes
 
 		carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
@@ -214,8 +223,8 @@ function dropTapete(objetoTapete, event) {
 				carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
 				transferirCarta(carta, mazo_receptor1);
 
-				if(mazo_inicial.length == 0){
-					if(mazo_sobrantes.length == 0){
+				if (mazo_inicial.length == 0) {
+					if (mazo_sobrantes.length == 0) {
 						victoria();
 					} else {
 						rebarajar();
@@ -224,18 +233,18 @@ function dropTapete(objetoTapete, event) {
 					mazo_inicial[mazo_inicial.length - 1].setAttribute("draggable", "true");
 					mazo_inicial[mazo_inicial.length - 1].setAttribute("ondragstart", "drag_carta(event)");
 				}
-				
+
 				actualizaContadores();
 			}
-		break;
+			break;
 		case "receptor2":
 			if (compruebaNumero(carta, mazo_receptor2) && compruebaColor(carta, mazo_receptor2)) {
 				tapete_receptor2.appendChild(carta); // añadir la carta al tapete receptor 2
 				carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
 				transferirCarta(carta, mazo_receptor2);
 
-				if(mazo_inicial.length == 0){
-					if(mazo_sobrantes.length == 0){
+				if (mazo_inicial.length == 0) {
+					if (mazo_sobrantes.length == 0) {
 						victoria();
 					} else {
 						rebarajar();
@@ -247,15 +256,15 @@ function dropTapete(objetoTapete, event) {
 
 				actualizaContadores();
 			}
-		break;
+			break;
 		case "receptor3":
 			if (compruebaNumero(carta, mazo_receptor3) && compruebaColor(carta, mazo_receptor3)) {
 				tapete_receptor3.appendChild(carta); // añadir la carta al tapete receptor 3
 				carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
 				transferirCarta(carta, mazo_receptor3);
 
-				if(mazo_inicial.length == 0){
-					if(mazo_sobrantes.length == 0){
+				if (mazo_inicial.length == 0) {
+					if (mazo_sobrantes.length == 0) {
 						victoria();
 					} else {
 						rebarajar();
@@ -267,15 +276,15 @@ function dropTapete(objetoTapete, event) {
 
 				actualizaContadores();
 			}
-		break;
+			break;
 		case "receptor4":
 			if (compruebaNumero(carta, mazo_receptor4) && compruebaColor(carta, mazo_receptor4)) {
 				tapete_receptor4.appendChild(carta); // añadir la carta al tapete receptor 4
 				carta.setAttribute("class", "cartaTapete"); // cambiar la clase de la carta
 				transferirCarta(carta, mazo_receptor4);
 
-				if(mazo_inicial.length == 0){
-					if(mazo_sobrantes.length == 0){
+				if (mazo_inicial.length == 0) {
+					if (mazo_sobrantes.length == 0) {
 						victoria();
 					} else {
 						rebarajar();
@@ -287,7 +296,7 @@ function dropTapete(objetoTapete, event) {
 
 				actualizaContadores();
 			}
-		break;
+			break;
 	}
 
 }
@@ -316,10 +325,10 @@ function compruebaNumero(carta, mazo_destino) {
 
 function compruebaColor(carta, mazo_destino) {
 
-	if(mazo_destino.length != 0) { // si el mazo destino no está vacío
+	if (mazo_destino.length != 0) { // si el mazo destino no está vacío
 
 		figuraCarta = carta.id.split("-")[1]; // el id de la carta tiene el formato numero-palo, así que hacemos un split para obtener el palo
-	
+
 		if (figuraCarta == "cir" || figuraCarta == "hex") { // si la figura de la carta es un circulo o un hexagono
 			figuraCarta = "gris" // la figura de la carta es gris
 		} else { // si la figura de la carta es un cuadrado o un rombo
@@ -327,7 +336,7 @@ function compruebaColor(carta, mazo_destino) {
 		}
 
 		figuraAnterior = mazo_destino[mazo_destino.length - 1].id.split("-")[1]; // el id de la carta anterior tiene el formato numero-palo, así que hacemos un split para obtener el palo
-		
+
 		if (figuraAnterior == "cir" || figuraAnterior == "hex") { // si la figura de la carta anterior es un circulo o un hexagono
 			figuraAnterior = "gris" // la figura de la carta anterior es gris
 		} else { // si la figura de la carta anterior es un cuadrado o un rombo
@@ -384,5 +393,11 @@ function rebarajar() {
 
 function victoria() {
 	alert("¡Has ganado la partida en " + cont_movimientos.innerHTML + " movimientos!");
-	window.location.reload();
+	document.body.style.backgroundColor = '#60b347';
+	parar_tiempo();
+}
+
+/* funcion que guarda dentro de high_score el valor de cont_movimientos */
+function guardarHighScore() {
+	high_score = cont_movimientos.innerHTML;
 }
