@@ -131,6 +131,16 @@ div.tapete.receptor {
   border: 3px solid#a04a28;
 }
 
+#playagain {
+  width: 12em;
+  font-weight: bold;
+  font-size: medium;
+  background-color: lightgreen;
+  border: 3px solid rgb(98, 162, 98);
+  color: black;
+  animation: pulse 2s ease-in-out infinite;
+}
+
 .carta {
   border: 1.7px solid #c7af8c;
   border-radius: 25px;

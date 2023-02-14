@@ -2,7 +2,7 @@
 // Array de palos
 let palos = ["ova", "cua", "hex", "cir"];
 // Array de número de cartas
-let numeros = [1,2,3,4,5,6,7,8,9,10,11,12];
+let numeros = [10,11,12];
 
 // Tapetes				
 let tapete_inicial = document.getElementById("inicial");
@@ -151,7 +151,7 @@ function cargar_tapete_inicial(mazo) {
 			
 		})(i);
 	}
-
+	animateGIF("gif", "imagenes/luigi_poker.gif", 400);
 	mazo[mazo.length - 1].setAttribute("draggable", "true"); // Solo la ultima carta debe ser draggable
 	mazo[mazo.length - 1].setAttribute("ondragstart", "drag_carta(event)");
 
@@ -176,12 +176,6 @@ function animateGIF(id, src, height) {
 	  }, 60);
 	}, 2430);
   }
-  
-  // Uso de la función
-  animateGIF("gif", "imagenes/luigi_poker.gif", 400);
-  
-
-
 
 // ==================== FIN CARGAR MAZO INICIAL EN TAPETE ====================
 
@@ -251,6 +245,7 @@ function dropTapete(objetoTapete, event) {
 				if (mazo_inicial.length == 0) {
 					if (mazo_sobrantes.length == 0) {
 						victoria();
+						break;
 					} else {
 						rebarajar();
 					}
@@ -271,6 +266,7 @@ function dropTapete(objetoTapete, event) {
 				if (mazo_inicial.length == 0) {
 					if (mazo_sobrantes.length == 0) {
 						victoria();
+						break;
 					} else {
 						rebarajar();
 					}
@@ -291,6 +287,7 @@ function dropTapete(objetoTapete, event) {
 				if (mazo_inicial.length == 0) {
 					if (mazo_sobrantes.length == 0) {
 						victoria();
+						break;
 					} else {
 						rebarajar();
 					}
@@ -311,6 +308,7 @@ function dropTapete(objetoTapete, event) {
 				if (mazo_inicial.length == 0) {
 					if (mazo_sobrantes.length == 0) {
 						victoria();
+						break;
 					} else {
 						rebarajar();
 					}
@@ -418,9 +416,13 @@ function rebarajar() {
 
 function victoria() {
 	actualizaContadores();
-	alert("¡Has ganado la partida en " + cont_movimientos.innerHTML + " movimientos!");
+	// alert("¡Has ganado la partida en " + cont_movimientos.innerHTML + " movimientos!");
 	guardarHighScore();
 	parar_tiempo();
+	var boton = document.getElementById("reset");
+	boton.innerHTML = ("<span class='glyphicon glyphicon-refresh' aria-hidden='true'></span>&nbspVolver a jugar");
+	boton.id = ("playagain");
+	$('.alert').show()
 }
 
 /* funcion que guarda dentro de high_score el valor de cont_movimientos */
