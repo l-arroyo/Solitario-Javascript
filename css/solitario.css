@@ -135,9 +135,9 @@ div.tapete.receptor {
   width: 12em;
   font-weight: bold;
   font-size: medium;
-  background-color: lightgreen;
-  border: 3px solid rgb(98, 162, 98);
-  color: black;
+  background-color: #317507;
+  border: 3px solid #214d06;
+  color: white;
   animation: pulse 2s ease-in-out infinite;
 }
 
@@ -193,6 +193,16 @@ div.tapete.receptor {
   margin-right: auto;
   justify-content: center;
   width: 475px;
+  z-index: 3;
+  border-radius: 20px;
+  border: 3px solid lightgrey;
+}
+
+#win {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px;
   z-index: 3;
   border-radius: 20px;
   border: 3px solid lightgrey;

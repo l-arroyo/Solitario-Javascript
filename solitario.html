@@ -22,10 +22,10 @@
 			<img class="logo" src="imagenes/Logo.png" alt="logo" id="logo">
 		</div>
 
-		<div class="alert alert-success alert-dismissible" role="alert" $().alert()>
+		<!-- <div class="alert alert-success alert-dismissible" role="alert" $().alert()>
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			<strong>Warning!</strong> Better check yourself, you're not looking too good.
-		</div>
+		</div> -->
 
 		<!-- Siguiente línea donde se indicará el tiempo transcurrido y la cantidad
 				de movimientos que se han hecho hasta el momento. Estos números se 
@@ -50,10 +50,13 @@
 				y en la parte inferior los cuatro restantes. Los contadores de los
 				mazos de cartas de cada tapete están indicados oportunamente dentro
 				de elementos span -->
+		<img id="win" src="" style="display:none;">
 		<div id="mesa">
+			
 			<div class="tapetes_superiores">
-				<div id="inicial" class="tapete"><span id="contador_inicial" class="contador"></span></div><!--
-					-->
+				<div id="inicial" class="tapete">
+				<span id="contador_inicial" class="contador"></span></div>
+
 				<div id="sobrantes" class="tapete" ondrop="dropSobrantes(event)" ondragover="allowDrop(event)"><span
 						id="contador_sobrantes" class="contador"></span></div>
 

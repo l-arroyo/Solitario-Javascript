@@ -423,7 +423,35 @@ function victoria() {
 	boton.innerHTML = ("<span class='glyphicon glyphicon-refresh' aria-hidden='true'></span>&nbspVolver a jugar");
 	boton.id = ("playagain");
 	$('.alert').show()
+	$('.alert').addClass('animated bounceInDown');
+	
+	document.body.style.filter = "grayscale(100%)";
+	winGIF("win", "imagenes/luigi_win.gif", 300);
+	// wait 3 seconds before setting que grayscale to 0
+	setTimeout(function() {
+		document.body.style.filter = "grayscale(0%)";
+	}, 5000);
 }
+
+function winGIF(id, src, height) {
+	var gif = document.getElementById(id);
+	gif.src = src;
+	gif.style.display = "inline";
+	gif.style.transform = "translateY(0)";
+	
+	setTimeout(function() {
+		document.body.style.overflow = "hidden";
+		var fadeOutInterval = setInterval(function () {
+		var translateY = parseInt(gif.style.transform.match(/\d+/g));
+		if (translateY >= height) {
+		  clearInterval(fadeOutInterval);
+		  gif.style.display = "none";
+		} else {
+		  gif.style.transform = "translateY(" + (translateY + 10) + "px)";
+		}
+	  }, 60);
+	}, 2430);
+  }
 
 /* funcion que guarda dentro de high_score el valor de cont_movimientos */
 function guardarHighScore() {
