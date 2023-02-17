@@ -2,7 +2,7 @@
 // Array de palos
 let palos = ["ova", "cua", "hex", "cir"];
 // Array de número de cartas
-let numeros = [10,11,12];
+let numeros = [12];
 
 // Tapetes				
 let tapete_inicial = document.getElementById("inicial");
@@ -91,7 +91,6 @@ function reiniciar() {
 var cInterval;
 function arrancar_tiempo() {
 	var segundos = 0;
-	/*** !!!!!!!!!!!!!!!!!!! CÓDIGO !!!!!!!!!!!!!!!!!!!! **/
 	cInterval = window.setInterval(function () {
 		let seg = Math.trunc(segundos % 60);
 		let min = Math.trunc((segundos % 3600) / 60);
@@ -120,9 +119,8 @@ function barajar(mazo) {
 		mazo.splice(i, 1); // Eliminamos la carta del mazo original
 	}
 	mazo = mazo_barajado; // Asignamos el mazo barajado al mazo original
-	//asignar al ultimo elemento del mazo la la funcion drag_carta
 	return mazo;
-} // barajar
+}
 
 // ==================== FIN BARAJAR MAZO ====================
 
@@ -151,7 +149,7 @@ function cargar_tapete_inicial(mazo) {
 			
 		})(i);
 	}
-	animateGIF("gif", "imagenes/luigi_poker.gif", 400);
+	animateGIF("gif", "imagenes/luigi_poker.gif", 400); // Animación de inicio
 	mazo[mazo.length - 1].setAttribute("draggable", "true"); // Solo la ultima carta debe ser draggable
 	mazo[mazo.length - 1].setAttribute("ondragstart", "drag_carta(event)");
 
@@ -426,7 +424,7 @@ function victoria() {
 	$('.alert').addClass('animated bounceInDown');
 	
 	document.body.style.filter = "grayscale(100%)";
-	winGIF("win", "imagenes/luigi_win.gif", 300);
+	winGIF("win", "imagenes/luigi_win.gif", 400);
 	// wait 3 seconds before setting que grayscale to 0
 	setTimeout(function() {
 		document.body.style.filter = "grayscale(0%)";

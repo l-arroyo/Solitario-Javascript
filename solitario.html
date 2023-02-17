@@ -14,7 +14,7 @@
 </head>
 
 <body>
-	
+
 	<div class="central">
 		<!-- Título principal -->
 		<div class="tituloLogo">
@@ -50,17 +50,20 @@
 				y en la parte inferior los cuatro restantes. Los contadores de los
 				mazos de cartas de cada tapete están indicados oportunamente dentro
 				de elementos span -->
-		<img id="win" src="" style="display:none;">
+
 		<div id="mesa">
 			
+			<img id="win" src="" style="display:none;">
 			<div class="tapetes_superiores">
+				
 				<div id="inicial" class="tapete">
-				<span id="contador_inicial" class="contador"></span></div>
+					<span id="contador_inicial" class="contador"></span>
+				</div>
 
-				<div id="sobrantes" class="tapete" ondrop="dropSobrantes(event)" ondragover="allowDrop(event)"><span
-						id="contador_sobrantes" class="contador"></span></div>
+				<div id="sobrantes" class="tapete" ondrop="dropSobrantes(event)" 
+				ondragover="allowDrop(event)"><span id="contador_sobrantes" class="contador"></span></div>
 
-			
+
 			</div>
 
 			<img id="gif" src="" style="display:none;">
@@ -91,7 +94,7 @@
 		Enlazar el fichero de javascript que contiene la lógica del juego
 		-->
 	<script src="js/solitario.js"></script>
-	
+
 
 </body>
 
