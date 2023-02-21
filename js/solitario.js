@@ -417,6 +417,7 @@ function victoria() {
 	// alert("¡Has ganado la partida en " + cont_movimientos.innerHTML + " movimientos!");
 	guardarHighScore();
 	parar_tiempo();
+
 	var boton = document.getElementById("reset");
 	boton.innerHTML = ("<span class='glyphicon glyphicon-refresh' aria-hidden='true'></span>&nbspVolver a jugar");
 	boton.id = ("playagain");
