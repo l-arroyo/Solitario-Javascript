@@ -1,6 +1,6 @@
 /***** INICIO DECLARACIÓN DE VARIABLES GLOBALES *****/
-// Array de palos
-let palos = ["ova", "cua", "hex", "cir"];
+// Array de palos , "cua", "hex", "cir"
+let palos = ["ova"];
 // Array de número de cartas
 let numeros = [12];
 
