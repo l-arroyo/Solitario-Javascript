@@ -1,8 +1,8 @@
 /***** INICIO DECLARACIÓN DE VARIABLES GLOBALES *****/
-// Array de palos , "cua", "hex", "cir"
-let palos = ["ova"];
-// Array de número de cartas
-let numeros = [12];
+// Array de palos ["ova","cua","hex","cir"]
+let palos = ["ova","cua","hex","cir"];
+// Array de número de cartas 1-12
+let numeros = [1,2,3,4,5,6,7,8,9,10,11,12];
 
 // Tapetes				
 let tapete_inicial = document.getElementById("inicial");
